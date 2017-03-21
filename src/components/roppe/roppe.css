@@ -1,0 +1,56 @@
+.roppe {
+    position: relative;
+    text-align: left;
+}
+
+.img-original {
+    position: absolute;
+    opacity: .1;
+    pointer-events: none;
+}
+
+.drop-area {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .1s ease-in;
+    backface-visibility: hidden;
+    will-change: transform, box-shadow;
+    cursor: pointer;
+}
+.drop-area__active {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 30, 0.2);
+}
+
+.roppe-cropper {
+    cursor: grab;
+}
+.roppe-cropper:active {
+    cursor: grabbing;
+}
+
+.btn {
+    text-decoration: none;
+}
+.btn__download {
+    position: absolute;
+    left: 0;
+    margin-top: -2rem;
+}
+.btn__clear {
+    position: absolute;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    right: -.5rem;
+    margin-top: -2.5rem;
+    cursor: pointer;
+}
+.btn-icon {
+    font-size: .8rem;
+}
