@@ -1,0 +1,46 @@
+html {
+    width: 100vw;
+    height: 100vh;
+    background-color: #0e3c5f;
+    color: #2fa3be;
+    font-size: 18px;
+    line-height: 24px;
+    font-family: -apple-system, BlinkMacSystemFont,
+    'avenir next', avenir,
+    'helvetica neue', helvetica,
+    ubuntu,
+    roboto, noto,
+    'segoe ui', arial,
+    sans-serif;
+}
+
+body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.App {
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.title {
+    color: #f3b243;
+}
+
+.roppe {
+    margin: 3rem auto;
+}
+.drop-area {
+    background-color: #2fa3be;
+    color: #0e3c5f;
+}
+
+.pixels-range-label {
+    display: block;
+}
+
+.btn {
+    color: #f3b243;
+}
