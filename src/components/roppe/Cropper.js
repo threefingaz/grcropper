@@ -43,9 +43,9 @@ class Cropper extends Component {
         ctx.drawImage(
             // image,
             this.props.img_element,
-            // sx, sy, sWidth, sHeight, dx, dy,
+            // sx, sy, sWidth, sHeight
             -offset.left, -offset.top, img_size.width, img_size.height,
-            // dWidth, dHeight
+            // dx, dy, dWidth, dHeight
             0, 0, img_size.width, img_size.height
         );
 
@@ -57,6 +57,8 @@ class Cropper extends Component {
 
     crop(moveEvent) {
         if (!this.state.cropping) return;
+        if (this.props.width > this.state.img_size.width) return;
+        if (this.props.height > this.state.img_size.height) return;
 
         const { img_size, delta, offset, canvas } = { ...this.state };
         const width = this.props.width;
@@ -155,14 +157,14 @@ class Cropper extends Component {
 
     render() {
         return (
-                <canvas className="roppe-cropper"
-                        width={ this.props.width }
-                        height={ this.props.height }
-                        onMouseDown={ event => this.startCropping(event) }
-                        onMouseMove={ event => this.crop(event) }
-                        onMouseUp={ () => this.stopCropping() }
-                        ref={ canvas => this.canvas = canvas }>
-                </canvas>
+                <canvas
+                    className="roppe-cropper-canvas"
+                    width={ this.props.width }
+                    height={ this.props.height }
+                    onMouseDown={ event => this.startCropping(event) }
+                    onMouseMove={ event => this.crop(event) }
+                    onMouseUp={ () => this.stopCropping() }
+                    ref={ canvas => this.canvas = canvas } />
         );
     }
 }

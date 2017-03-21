@@ -23,6 +23,7 @@ class InputRange extends Component {
     render() {
         return <input
             type="range"
+            className="pixels-range"
             name="pixels"
             id="pixels-range"
             min="300"

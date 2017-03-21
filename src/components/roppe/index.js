@@ -59,7 +59,7 @@ class Roppe extends Component {
         const { src } = { ...this.state };
         const classes = () => {
             const from_props = this.props.className ? `${this.props.className} ` : ``;
-            const from_state = src ? `roppe-cropper` : `roppe-dropper`;
+            const from_state = src ? `roppe__cropper` : `roppe__dropper`;
 
             return `${from_props}${from_state}`;
         };

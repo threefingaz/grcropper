@@ -30,13 +30,12 @@ body {
 }
 
 .roppe {
-    margin: 3rem auto;
+    margin: 2rem auto;
 }
 .drop-area {
     background-color: #2fa3be;
     color: #0e3c5f;
 }
-
 .pixels-range-label {
     display: block;
 }
