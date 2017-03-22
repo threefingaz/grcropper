@@ -19,12 +19,13 @@ class Cropper extends Component {
     }
 
     componentDidMount() {
-        let state = {...this.state};
+        this.setState({
+            img_size: {
+                width: this.props.img_element.width,
+                height: this.props.img_element.height
+            }
+        });
 
-        state.img_size.width = this.props.img_element.width;
-        state.img_size.height = this.props.img_element.height;
-
-        this.setState(state);
         this.draw();
         this.props.setImage(this.canvas.toDataURL());
     }
@@ -54,63 +55,6 @@ class Cropper extends Component {
             left: offset.left,
         });
     }
-
-    crop(moveEvent) {
-        if (!this.state.cropping) return;
-        if (this.props.width > this.state.img_size.width) return;
-        if (this.props.height > this.state.img_size.height) return;
-
-        const { img_size, delta, offset, canvas } = { ...this.state };
-        const width = this.props.width;
-        const height = this.props.height;
-
-        const top = (
-            moveEvent.pageY - window.scrollY
-            - delta.top
-            - canvas.top
-        );
-        const left = (
-            moveEvent.pageX - window.scrollX
-            - delta.left
-            - canvas.left
-        );
-
-        function getTop() {
-            const too_height = (
-                canvas.top + top + img_size.height < canvas.top + height
-            );
-            const too_low = top > 0;
-
-            if (too_height) {
-                return height - img_size.height;
-            } else if (too_low) {
-                return 0;
-            } else {
-                return top;
-            }
-        }
-
-        function getLeft() {
-            const too_left = (
-                canvas.left + left + img_size.width < canvas.left + width
-            );
-            const too_right = left > 0;
-
-            if (too_left) {
-                return width - img_size.width;
-            } else if (too_right) {
-                return 0;
-            } else {
-                return left;
-            }
-        }
-
-        offset.top = getTop();
-        offset.left = getLeft();
-
-        this.setState({ offset });
-        this.draw();
-    };
 
     startCropping(clickEvent) {
         clickEvent.preventDefault();
@@ -144,16 +88,74 @@ class Cropper extends Component {
             }
         });
 
-        document.onmousemove = event => this.crop(event);
-        document.onmouseup = () => this.stopCropping();
-    };
+        // Continue cropping if cursor left canvas
+        document.addEventListener('mousemove', this.crop);
+        document.addEventListener('mouseup', this.stopCropping);
+    }
+
+    crop(moveEvent) {
+        if (!this.state.cropping) return;
+        // Do not anything if original image have less size
+        // Improve needed
+        if (this.props.width > this.state.img_size.width) return;
+        if (this.props.height > this.state.img_size.height) return;
+
+        const { img_size, delta, offset, canvas } = { ...this.state };
+        const width = this.props.width;
+        const height = this.props.height;
+
+        const top = (
+            moveEvent.pageY - window.scrollY
+            - delta.top
+            - canvas.top
+        );
+        const left = (
+            moveEvent.pageX - window.scrollX
+            - delta.left
+            - canvas.left
+        );
+
+        // Make top and bottom boundaries
+        function getTop() {
+            const too_height = canvas.top + top + img_size.height < canvas.top + height;
+            const too_low = top > 0;
+
+            if (too_height) {
+                return height - img_size.height;
+            } else if (too_low) {
+                return 0;
+            } else {
+                return top;
+            }
+        }
+
+        // Make left and right boundaries
+        function getLeft() {
+            const too_left = canvas.left + left + img_size.width < canvas.left + width;
+            const too_right = left > 0;
+
+            if (too_left) {
+                return width - img_size.width;
+            } else if (too_right) {
+                return 0;
+            } else {
+                return left;
+            }
+        }
+
+        offset.top = getTop();
+        offset.left = getLeft();
+
+        this.setState({ offset });
+        this.draw();
+    }
 
     stopCropping() {
         this.setState({ cropping: false });
         this.props.setImage(this.canvas.toDataURL());
-        document.onmousemove = null;
-        document.onmouseup = null;
-    };
+        document.removeEventListener('mousemove', this.crop);
+        document.removeEventListener('mouseup', this.stopCropping);
+    }
 
     render() {
         return (

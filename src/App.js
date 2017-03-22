@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Roppe from './components/roppe';
+import Logo from './components/Logo';
 
 function calculateGoldenRatio(number) {
     return parseInt((number / 1.6180339887).toFixed(), 10);
@@ -58,6 +59,9 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <Logo
+                    color={ '#fff' }
+                    size={ 56 } />
                 <h1 className="title">Golden Ratio Image Cropper</h1>
                 <label
                     className="pixels-range-label"

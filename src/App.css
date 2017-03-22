@@ -24,7 +24,9 @@ body {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
-
+.gr-logo {
+    margin-bottom: -.5rem;
+}
 .title {
     color: #f3b243;
 }
