@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Roppe from './components/roppe';
+import Roppe from './components/Roppe';
 import Logo from './components/Logo';
 
 function calculateGoldenRatio(number) {
